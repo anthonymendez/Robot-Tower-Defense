@@ -20,14 +20,16 @@ public class CubeEditor : MonoBehaviour {
 
 	void Update () {
         PerformSnapPosition();
-        UpdateCoordinateLabel();
+        UpdateLabel();
     }
 
-    private void UpdateCoordinateLabel() {
+    private void UpdateLabel() {
         if (coordinateLabel == null)
             return;
 
-        coordinateLabel.text = String.Format("{0},{1}", snapPos.x / gridSize, snapPos.z / gridSize);
+        String coordLabel = String.Format("{0},{1}", snapPos.x / gridSize, snapPos.z / gridSize);
+        coordinateLabel.text = coordLabel;
+        gameObject.name = coordLabel;
     }
 
     private void PerformSnapPosition() {

@@ -74,6 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4620847309253890}
   - component: {fileID: 114900268728433990}
+  - component: {fileID: 114578396044790590}
   m_Layer: 0
   m_Name: Quad Cube
   m_TagString: Untagged
@@ -213,7 +214,7 @@ Transform:
   m_GameObject: {fileID: 1515226256853010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 9, y: 9, z: 9}
   m_Children:
   - {fileID: 4539374947100578}
   - {fileID: 4630120490894388}
@@ -655,6 +656,17 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
+--- !u!114 &114578396044790590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1515226256853010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49d88c366a23db409319401a14bc959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114900268728433990
 MonoBehaviour:
   m_ObjectHideFlags: 1
