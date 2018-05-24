@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour {
 
-    [SerializeField] List<Block> path;
+    [SerializeField] List<Node> path;
 
 	// Use this for initialization
 	void Start () {
-        PrintAllWaypoints();
+        StartCoroutine(FollowPath());
     }
 	
 	// Update is called once per frame
@@ -16,9 +16,14 @@ public class EnemyMovement : MonoBehaviour {
 
     }
 
-    private void PrintAllWaypoints() {
-        foreach (Block b in path) {
-            print(b.name);
+    IEnumerator FollowPath() {
+        print("Starting Patrol");
+        yield return new WaitForSeconds(1f);
+        foreach (Node b in path) {
+            transform.position = b.transform.position;
+            print("Visiting block: " + b.name);
+            yield return new WaitForSeconds(1f);
         }
+        print("Patrol Ended");
     }
 }
