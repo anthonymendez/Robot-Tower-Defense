@@ -21,6 +21,7 @@ public class CubeEditor : MonoBehaviour {
 
     private void UpdateLabel() {
         Vector3 gridPos = node.GetGridPos();
+        int gridSize = node.GetGridSize();
         TextMesh coordinateLabel = GetComponentInChildren<TextMesh>();
         String coordLabel = String.Format("{0},{1}", gridPos.x / gridSize, gridPos.z / gridSize);
 
