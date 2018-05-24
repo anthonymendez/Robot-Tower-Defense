@@ -22,4 +22,10 @@ public class Node : MonoBehaviour {
 
         return newGridPos;
     }
+
+    public void setTopColor(Color newColor) {
+        Transform top = transform.Find("Top");
+        MeshRenderer topMeshRenderer = top.GetComponent<MeshRenderer>();
+        topMeshRenderer.material.color = newColor;
+    }
 }

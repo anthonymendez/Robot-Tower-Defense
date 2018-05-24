@@ -5,12 +5,19 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour {
 
+    [SerializeField] Node startNode, endNode;
+
     Dictionary<Vector3Int, Node> worldGrid = new Dictionary<Vector3Int, Node>();
 
-	// Use this for initialization
 	void Start () {
+        ColorStartAndEnd();
         LoadBlocks();
 	}
+
+    private void ColorStartAndEnd() {
+        startNode.setTopColor(Color.red);
+        endNode.setTopColor(Color.green);
+    }
 
     private void LoadBlocks() {
         Node[] nodes = FindObjectsOfType<Node>();
@@ -33,8 +40,5 @@ public class Pathfinder : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
+    
 }
