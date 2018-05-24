@@ -4,15 +4,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class EditorSnap : MonoBehaviour {
+[SelectionBase]
+public class CubeEditor : MonoBehaviour {
     
+    [Header("Snapping Settings")]
     [Tooltip("GameObject will snap to positions of factors of this value.")][Range(1f, 20f)] [SerializeField] float
         gridSize = 10f;
 
     Vector3 snapPos;
+    TextMesh coordinateLabel;
+
+    void Start() {
+        coordinateLabel = GetComponentInChildren<TextMesh>();
+    }
 
 	void Update () {
         PerformSnapPosition();
+        UpdateCoordinateLabel();
+    }
+
+    private void UpdateCoordinateLabel() {
+        if (coordinateLabel == null)
+            return;
+
+        coordinateLabel.text = String.Format("{0},{1}", snapPos.x / gridSize, snapPos.z / gridSize);
     }
 
     private void PerformSnapPosition() {
