@@ -5,47 +5,32 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 [SelectionBase]
+[RequireComponent(typeof(Node))]
 public class CubeEditor : MonoBehaviour {
-    
-    [Header("Snapping Settings")]
-    [Tooltip("GameObject will snap to positions of factors of this value.")][Range(1f, 20f)] [SerializeField] float
-        gridSize = 10f;
 
-    Vector3 snapPos;
-    TextMesh coordinateLabel;
+    Node node;
 
-    void Start() {
-        coordinateLabel = GetComponentInChildren<TextMesh>();
+    void Awake() {
+        node = GetComponent<Node>();
     }
 
 	void Update () {
-        PerformSnapPosition();
+        SnapToGrid();
         UpdateLabel();
     }
 
     private void UpdateLabel() {
-        if (coordinateLabel == null)
-            return;
+        Vector3 gridPos = node.GetGridPos();
+        TextMesh coordinateLabel = GetComponentInChildren<TextMesh>();
+        String coordLabel = String.Format("{0},{1}", gridPos.x / gridSize, gridPos.z / gridSize);
 
-        String coordLabel = String.Format("{0},{1}", snapPos.x / gridSize, snapPos.z / gridSize);
         coordinateLabel.text = coordLabel;
         gameObject.name = coordLabel;
     }
 
-    private void PerformSnapPosition() {
-        CalculateSnapPosition();
-        SetSnapPosition();
+    private void SnapToGrid() {
+        transform.position = node.GetGridPos();
     }
 
-    private void SetSnapPosition() {
-        // Set position to snap position
-        transform.position = snapPos;
-    }
-
-    private void CalculateSnapPosition() {
-        // Calculate closest position of a factor of 10f
-        snapPos.x = Mathf.RoundToInt(transform.position.x / gridSize) * gridSize;
-        snapPos.y = Mathf.RoundToInt(transform.position.y / gridSize) * gridSize;
-        snapPos.z = Mathf.RoundToInt(transform.position.z / gridSize) * gridSize;
-    }
+    
 }
