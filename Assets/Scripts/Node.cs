@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Node : MonoBehaviour {
 
-    Vector3Int gridPos;
+    Vector2Int gridPos;
     const int gridSize = 10;
 
     void Awake() {
@@ -13,14 +13,14 @@ public class Node : MonoBehaviour {
 
     public int GetGridSize() { return gridSize; }
 
-    public Vector3Int GetGridPos() {
-        Vector3Int newGridPos = new Vector3Int(
-            Mathf.RoundToInt(transform.position.x / gridSize) * gridSize,
-            Mathf.RoundToInt(transform.position.y / gridSize) * gridSize,
-            Mathf.RoundToInt(transform.position.z / gridSize) * gridSize
+    public Vector2Int GetGridPos() {
+        Vector2Int newGridPos = new Vector2Int(
+            Mathf.RoundToInt(transform.position.x / gridSize),
+            Mathf.RoundToInt(transform.position.z / gridSize)
         );
 
-        return newGridPos;
+        gridPos = newGridPos;
+        return gridPos;
     }
 
     public void setTopColor(Color newColor) {

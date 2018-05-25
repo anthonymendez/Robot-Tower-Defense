@@ -20,17 +20,23 @@ public class CubeEditor : MonoBehaviour {
     }
 
     private void UpdateLabel() {
-        Vector3 gridPos = node.GetGridPos();
-        int gridSize = node.GetGridSize();
+        Vector2 gridPos = node.GetGridPos();
         TextMesh coordinateLabel = GetComponentInChildren<TextMesh>();
-        String coordLabel = String.Format("{0},{1}", gridPos.x / gridSize, gridPos.z / gridSize);
+        String coordLabel = String.Format("{0},{1}", gridPos.x, gridPos.y);
 
         coordinateLabel.text = coordLabel;
         gameObject.name = coordLabel;
     }
 
     private void SnapToGrid() {
-        transform.position = node.GetGridPos();
+        Vector2Int gridPos = node.GetGridPos();
+        int gridSize = node.GetGridSize();
+        transform.position = new Vector3(
+            gridPos.x * gridSize,
+            0f,
+            gridPos.y * gridSize
+            );
+
     }
 
     
