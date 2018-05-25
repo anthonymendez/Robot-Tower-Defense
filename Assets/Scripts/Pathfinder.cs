@@ -18,35 +18,12 @@ public class Pathfinder : MonoBehaviour {
     };
 
     Queue<Node> nodeQueue = new Queue<Node>();
+    Node currentNode;
 
 	void Start () {
         ColorStartAndEnd();
         LoadBlocks();
         PathFind();
-    }
-
-    private void PathFind() {
-        nodeQueue.Clear();
-
-        nodeQueue.Enqueue(startNode);
-        while (nodeQueue.Count != 0) {
-            Node currentNode = nodeQueue.Dequeue();
-
-            if (currentNode.visited)
-                continue;
-            
-            currentNode.visited = true;
-            print("Starting new Node search");
-
-            if (endNode.Equals(currentNode)) {
-                print("Goal found!"); // todo remove when fully implemented BFS
-                break;
-            }
-
-            ExploreNeighbors(currentNode);
-        }
-
-        print("Finished Pathfinding");
     }
 
     private void ColorStartAndEnd() {
@@ -63,7 +40,7 @@ public class Pathfinder : MonoBehaviour {
 
             if (isOverLapping) {
                 Debug.LogWarningFormat(
-                    "Overlapping blocks at ({0},{1}). Removed one gameobject at runtime.", 
+                    "Overlapping blocks at ({0},{1}). Removed one gameobject at runtime.",
                     gridPos.x,
                     gridPos.y
                     );
@@ -74,7 +51,41 @@ public class Pathfinder : MonoBehaviour {
         }
     }
 
-    private void ExploreNeighbors(Node currentNode) {
+    private void PathFind() {
+        nodeQueue.Clear();
+
+        nodeQueue.Enqueue(startNode);
+        while (nodeQueue.Count != 0) {
+            currentNode = nodeQueue.Dequeue();
+
+            if (currentNode.visited)
+                continue;
+            
+            currentNode.visited = true;
+            print("Searching from: " + currentNode.GetGridPos().x + " " + currentNode.GetGridPos().y);
+
+            if (endNode.Equals(currentNode)) {
+                print("Goal found!"); // todo remove when fully implemented BFS
+                break;
+            }
+
+            ExploreNeighbors();
+        }
+
+        ColorBreadcrumbs();
+
+        print("Finished Pathfinding");
+    }
+
+    private void ColorBreadcrumbs() {
+        currentNode = endNode.visitedFrom;
+        while(currentNode.visitedFrom != null) {
+            currentNode.setTopColor(Color.blue);
+            currentNode = currentNode.visitedFrom;
+        }
+    }
+
+    private void ExploreNeighbors() {
         foreach(Vector2Int direction in directions) {
             Vector2Int newPos = currentNode.GetGridPos() + direction;
 
@@ -87,7 +98,10 @@ public class Pathfinder : MonoBehaviour {
     private void QueueNeighbor(Vector2Int newPos) {
         Node neighborNode;
         worldGrid.TryGetValue(newPos, out neighborNode);
-        nodeQueue.Enqueue(neighborNode);
+        if (!neighborNode.visited && !nodeQueue.Contains(neighborNode)) {
+            neighborNode.visitedFrom = currentNode;
+            nodeQueue.Enqueue(neighborNode);
+        }
     }
 
 }
