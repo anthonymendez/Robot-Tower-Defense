@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Node : MonoBehaviour {
 
+    public bool visited = false;
+
     Vector2Int gridPos;
     const int gridSize = 10;
 
