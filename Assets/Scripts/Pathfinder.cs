@@ -9,6 +9,8 @@ public class Pathfinder : MonoBehaviour {
 
     Dictionary<Vector2Int, Node> worldGrid = new Dictionary<Vector2Int, Node>();
 
+    public List<Node> path = new List<Node>(); //TODO make private
+
     Vector2Int[] directions = {
         // X and Z axis respectively
         Vector2Int.up,
@@ -20,13 +22,15 @@ public class Pathfinder : MonoBehaviour {
     Queue<Node> nodeQueue = new Queue<Node>();
     Node currentNode;
 
-	void Start () {
+	void Start () { //todo maybe this happens when we ask for path
         ColorStartAndEnd();
         LoadBlocks();
-        PathFind();
+        BreadthFirstSearch();
+        CreatePath();
     }
 
     private void ColorStartAndEnd() {
+        // todo consider moving out
         startNode.setTopColor(Color.red);
         endNode.setTopColor(Color.green);
     }
@@ -51,7 +55,7 @@ public class Pathfinder : MonoBehaviour {
         }
     }
 
-    private void PathFind() {
+    private void BreadthFirstSearch() {
         nodeQueue.Clear();
 
         nodeQueue.Enqueue(startNode);
@@ -75,6 +79,19 @@ public class Pathfinder : MonoBehaviour {
         ColorBreadcrumbs();
 
         print("Finished Pathfinding");
+    }
+
+    private void CreatePath() {
+        path.Add(endNode);
+
+        Node previous = endNode.visitedFrom;
+        while (!previous.Equals(startNode)) {
+            path.Add(previous);
+            previous = previous.visitedFrom;
+        }
+
+        path.Add(startNode);
+        path.Reverse();
     }
 
     private void ColorBreadcrumbs() {

@@ -8,7 +8,7 @@ public class EnemyMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        StartCoroutine(FollowPath());
+        //StartCoroutine(FollowPath());
     }
 	
 	// Update is called once per frame
@@ -16,14 +16,14 @@ public class EnemyMovement : MonoBehaviour {
 
     }
 
-    IEnumerator FollowPath() {
-        print("Starting Patrol");
-        yield return new WaitForSeconds(1f);
-        foreach (Node b in path) {
-            transform.position = b.transform.position;
-            print("Visiting block: " + b.name);
-            yield return new WaitForSeconds(1f);
-        }
-        print("Patrol Ended");
-    }
+    //IEnumerator FollowPath() {
+    //    print("Starting Patrol");
+    //    yield return new WaitForSeconds(1f);
+    //    foreach (Node b in path) {
+    //        transform.position = b.transform.position;
+    //        print("Visiting block: " + b.name);
+    //        yield return new WaitForSeconds(1f);
+    //    }
+    //    print("Patrol Ended");
+    //}
 }
