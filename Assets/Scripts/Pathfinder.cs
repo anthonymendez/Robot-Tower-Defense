@@ -12,11 +12,18 @@ public class Pathfinder : MonoBehaviour {
     private List<Node> path = new List<Node>();
 
     public List<Node> GetPath() {
+        if (path.Count == 0) {
+            CalculatePath();
+        }
+
+        return path;
+    }
+
+    private void CalculatePath() {
         ColorStartAndEnd();
         LoadBlocks();
         BreadthFirstSearch();
         CreatePath();
-        return path;
     }
 
     Vector2Int[] directions = {

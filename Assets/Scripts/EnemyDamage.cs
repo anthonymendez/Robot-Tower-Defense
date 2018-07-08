@@ -23,7 +23,7 @@ public class EnemyDamage : MonoBehaviour {
     private void ProcessHit() {
         if (hitPoints > 0) {
             hitPoints--;
-            print(String.Format("Enemy HP:{0}", hitPoints));
+            //print(String.Format("Enemy HP:{0}", hitPoints));
         }        
     }
 
