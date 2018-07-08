@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour {
 
+    [Header("Speed")]
+    [SerializeField] float nodePerSecond = 2f;
+
+    [Header("Properties")]
+    [SerializeField] Collider collisionMesh;
+
 	// Use this for initialization
 	void Start () {
         //StartCoroutine(FollowPath());
@@ -14,11 +20,9 @@ public class EnemyMovement : MonoBehaviour {
 
     IEnumerator FollowPath(List<Node> path) {
         print("Starting Patrol");
-        yield return new WaitForSeconds(1f);
         foreach (Node b in path) {
             transform.position = b.transform.position;
-            print("Visiting block: " + b.name);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(nodePerSecond);
         }
         print("Patrol Ended");
     }
