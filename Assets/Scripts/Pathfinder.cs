@@ -9,7 +9,15 @@ public class Pathfinder : MonoBehaviour {
 
     Dictionary<Vector2Int, Node> worldGrid = new Dictionary<Vector2Int, Node>();
 
-    public List<Node> path = new List<Node>(); //TODO make private
+    private List<Node> path = new List<Node>();
+
+    public List<Node> GetPath() {
+        ColorStartAndEnd();
+        LoadBlocks();
+        BreadthFirstSearch();
+        CreatePath();
+        return path;
+    }
 
     Vector2Int[] directions = {
         // X and Z axis respectively
@@ -21,13 +29,6 @@ public class Pathfinder : MonoBehaviour {
 
     Queue<Node> nodeQueue = new Queue<Node>();
     Node currentNode;
-
-	void Start () { //todo maybe this happens when we ask for path
-        ColorStartAndEnd();
-        LoadBlocks();
-        BreadthFirstSearch();
-        CreatePath();
-    }
 
     private void ColorStartAndEnd() {
         // todo consider moving out
