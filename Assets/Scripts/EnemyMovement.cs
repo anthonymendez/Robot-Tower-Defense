@@ -10,9 +10,7 @@ public class EnemyMovement : MonoBehaviour {
     [Header("Properties")]
     [SerializeField] Collider collisionMesh;
 
-	// Use this for initialization
 	void Start () {
-        //StartCoroutine(FollowPath());
         Pathfinder pathfinder = FindObjectOfType<Pathfinder>();
         List<Node> path = pathfinder.GetPath();
         StartCoroutine(FollowPath(path));
