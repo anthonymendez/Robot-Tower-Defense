@@ -31,4 +31,8 @@ public class Node : MonoBehaviour {
         MeshRenderer topMeshRenderer = top.GetComponent<MeshRenderer>();
         topMeshRenderer.material.color = newColor;
     }
+
+    void OnMouseOver() {
+        print(gameObject.name);
+    }
 }

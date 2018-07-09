@@ -74,10 +74,8 @@ public class Pathfinder : MonoBehaviour {
                 continue;
             
             currentNode.visited = true;
-            print("Searching from: " + currentNode.GetGridPos().x + " " + currentNode.GetGridPos().y);
 
             if (endNode.Equals(currentNode)) {
-                print("Goal found!"); // todo remove when fully implemented BFS
                 break;
             }
 
@@ -85,8 +83,6 @@ public class Pathfinder : MonoBehaviour {
         }
 
         ColorBreadcrumbs();
-
-        print("Finished Pathfinding");
     }
 
     private void CreatePath() {

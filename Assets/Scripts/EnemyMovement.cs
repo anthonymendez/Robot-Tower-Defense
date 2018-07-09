@@ -17,11 +17,9 @@ public class EnemyMovement : MonoBehaviour {
     }
 
     IEnumerator FollowPath(List<Node> path) {
-        print("Starting Patrol");
         foreach (Node b in path) {
             transform.position = b.transform.position;
             yield return new WaitForSeconds(nodePerSecond);
         }
-        print("Patrol Ended");
     }
 }
