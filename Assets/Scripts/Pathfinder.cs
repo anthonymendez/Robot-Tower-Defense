@@ -86,16 +86,22 @@ public class Pathfinder : MonoBehaviour {
     }
 
     private void CreatePath() {
-        path.Add(endNode);
+        SetAsPath(endNode);
 
         Node previous = endNode.visitedFrom;
         while (!previous.Equals(startNode)) {
-            path.Add(previous);
+            print("Modifying " + gameObject.name);
+            SetAsPath(previous);
             previous = previous.visitedFrom;
         }
 
-        path.Add(startNode);
+        SetAsPath(startNode);
         path.Reverse();
+    }
+
+    private void SetAsPath(Node node) {
+        node.isPlaceable = false;
+        path.Add(node);
     }
 
     private void ColorBreadcrumbs() {

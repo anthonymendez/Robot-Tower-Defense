@@ -6,6 +6,7 @@ public class Node : MonoBehaviour {
 
     public bool visited = false;
     public Node visitedFrom;
+    public bool isPlaceable = true;
 
     Vector2Int gridPos;
     const int gridSize = 10;
@@ -33,6 +34,8 @@ public class Node : MonoBehaviour {
     }
 
     void OnMouseOver() {
-        print(gameObject.name);
+        if (isPlaceable && Input.GetMouseButtonDown(0)) {
+            print(gameObject.name);
+        }
     }
 }
