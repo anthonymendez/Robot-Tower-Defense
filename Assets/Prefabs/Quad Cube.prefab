@@ -319,6 +319,7 @@ MonoBehaviour:
   hasTower: 0
   towerPrefab: {fileID: 114417898459457680, guid: b93de91481ada474490031e80d19286f,
     type: 2}
+  towerParent: {fileID: 0}
 --- !u!114 &114900268728433990
 MonoBehaviour:
   m_ObjectHideFlags: 1

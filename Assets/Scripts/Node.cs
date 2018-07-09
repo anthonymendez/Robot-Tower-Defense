@@ -11,12 +11,14 @@ public class Node : MonoBehaviour {
 
     [SerializeField] Tower towerPrefab;
 
+    Transform towerParent;
     GameObject towerOnBlock;
     Vector2Int gridPos;
     const int gridSize = 10;
 
     void Awake() {
         gridPos = GetGridPos();
+        towerParent = GameObject.Find("Towers").transform;
     }
 
     public int GetGridSize() { return gridSize; }
@@ -40,6 +42,7 @@ public class Node : MonoBehaviour {
     void OnMouseOver() {
         if (isPlaceable && !hasTower && Input.GetMouseButtonDown(0)) {
             towerOnBlock = Instantiate(towerPrefab, transform.position, Quaternion.identity).gameObject;
+            towerOnBlock.transform.parent = towerParent;
             print(gameObject.name + "created");
             hasTower = true;
         } else if (Input.GetMouseButtonDown(1) && hasTower) {
