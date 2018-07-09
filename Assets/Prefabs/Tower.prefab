@@ -230,7 +230,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxFiringDistance: 30
   objectToPan: {fileID: 4386195913812926}
-  targetEnemy: {fileID: 0}
   bulletParticleSystem: {fileID: 198290021769392504}
 --- !u!198 &198290021769392504
 ParticleSystem:
