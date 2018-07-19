@@ -17,6 +17,8 @@ public class Tower : MonoBehaviour {
 
     // States
     private Transform targetEnemy; // TODO Change based on enemy.
+
+    public Node baseNode;
 	
     // Update is called once per frame
 	void Update () {

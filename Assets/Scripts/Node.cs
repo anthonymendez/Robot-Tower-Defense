@@ -7,7 +7,6 @@ public class Node : MonoBehaviour {
     public bool visited = false;
     public Node visitedFrom;
     public bool isPlaceable = true;
-    public bool hasTower = false;
 
     Transform towerParent;
     GameObject towerOnBlock;
@@ -38,9 +37,8 @@ public class Node : MonoBehaviour {
     }
 
     void OnMouseOver() {
-        if (isPlaceable && !hasTower && Input.GetMouseButtonDown(0)) {
+        if (isPlaceable && Input.GetMouseButtonDown(0)) {
             FindObjectOfType<TowerFactory>().AddTower(this);
-            hasTower = true;
         }
     }
 }
