@@ -9,8 +9,6 @@ public class Node : MonoBehaviour {
     public bool isPlaceable = true;
     public bool hasTower = false;
 
-    [SerializeField] Tower towerPrefab;
-
     Transform towerParent;
     GameObject towerOnBlock;
     Vector2Int gridPos;
@@ -41,14 +39,8 @@ public class Node : MonoBehaviour {
 
     void OnMouseOver() {
         if (isPlaceable && !hasTower && Input.GetMouseButtonDown(0)) {
-            towerOnBlock = Instantiate(towerPrefab, transform.position, Quaternion.identity).gameObject;
-            towerOnBlock.transform.parent = towerParent;
-            print(gameObject.name + "created");
+            FindObjectOfType<TowerFactory>().AddTower(this);
             hasTower = true;
-        } else if (Input.GetMouseButtonDown(1) && hasTower) {
-            Destroy(towerOnBlock);
-            print(gameObject.name + "destroyed");
-            hasTower = false;
         }
     }
 }
