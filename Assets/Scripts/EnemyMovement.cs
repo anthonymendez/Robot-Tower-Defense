@@ -34,7 +34,7 @@ public class EnemyMovement : MonoBehaviour {
 
     private void HandleReachingGoal() {
         HandleGoalHitParticleSystem();
-        Destroy(gameObject);
+        Destroy(gameObject, nodePerSecond);
     }
 
     private void HandleGoalHitParticleSystem() {

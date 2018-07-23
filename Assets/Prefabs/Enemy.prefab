@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51f04d2d6635df45a1fd47e87667b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodePerSecond: 0.5
+  nodePerSecond: 0.49
   collisionMesh: {fileID: 65493439388433654}
   goalHitParticlePrefab: {fileID: 198616069882514702, guid: 40ce8ddf295d32e4d9cec0509147b42e,
     type: 2}
