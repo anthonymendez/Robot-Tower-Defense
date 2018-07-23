@@ -9,17 +9,28 @@ public class EnemyDamage : MonoBehaviour {
     [SerializeField] ParticleSystem hitParticlePrefab;
     [SerializeField] ParticleSystem deathParticlePrefab;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private Transform deathParticleParent;
+
+    void Start() {
+        SetDeathParticleParent();
+    }
+
+    void SetDeathParticleParent() {
+        deathParticleParent = GameObject.Find("Enemy Death Particles").transform;
+    }
 
     // Update is called once per frame
     private void OnParticleCollision(GameObject other) {
         ProcessHit();
         if (IfKilled()) {
+            if (deathParticleParent == null) {
+                SetDeathParticleParent();
+            }
+
             ParticleSystem deathParticles = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
+            deathParticles.transform.parent = deathParticleParent;
             deathParticles.Play();
+            Destroy(deathParticles.gameObject, deathParticles.main.duration);
             Destroy(gameObject);
         }
     }
