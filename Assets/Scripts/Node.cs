@@ -15,7 +15,6 @@ public class Node : MonoBehaviour {
 
     void Awake() {
         gridPos = GetGridPos();
-        towerParent = GameObject.Find("Towers").transform;
     }
 
     public int GetGridSize() { return gridSize; }

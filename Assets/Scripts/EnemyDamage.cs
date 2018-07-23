@@ -27,12 +27,16 @@ public class EnemyDamage : MonoBehaviour {
                 SetDeathParticleParent();
             }
 
-            ParticleSystem deathParticles = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
-            deathParticles.transform.parent = deathParticleParent;
-            deathParticles.Play();
-            Destroy(deathParticles.gameObject, deathParticles.main.duration);
+            HandleDeathParticleSystem();
             Destroy(gameObject);
         }
+    }
+
+    private void HandleDeathParticleSystem() {
+        ParticleSystem deathParticles = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
+        deathParticles.transform.parent = deathParticleParent;
+        deathParticles.Play();
+        Destroy(deathParticles.gameObject, deathParticles.main.duration);
     }
 
     private void ProcessHit() {

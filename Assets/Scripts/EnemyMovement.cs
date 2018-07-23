@@ -5,12 +5,15 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour {
 
     [Header("Speed")]
-    [SerializeField] float nodePerSecond = 2f;
+    [SerializeField] float nodePerSecond = 0.5f;
 
     [Header("Properties")]
     [SerializeField] Collider collisionMesh;
 
-	void Start () {
+    [Header("Particle Systems")]
+    [SerializeField] ParticleSystem goalHitParticlePrefab;
+
+    void Start () {
         Pathfinder pathfinder = FindObjectOfType<Pathfinder>();
         List<Node> path = pathfinder.GetPath();
         StartCoroutine(FollowPath(path));
@@ -18,8 +21,26 @@ public class EnemyMovement : MonoBehaviour {
 
     IEnumerator FollowPath(List<Node> path) {
         foreach (Node b in path) {
+            bool isLastNode = b == path[path.Count - 1];
             transform.position = b.transform.position;
+
+            if (isLastNode) {
+                HandleReachingGoal();
+            }
+
             yield return new WaitForSeconds(nodePerSecond);
         }
+    }
+
+    private void HandleReachingGoal() {
+        HandleGoalHitParticleSystem();
+        Destroy(gameObject);
+    }
+
+    private void HandleGoalHitParticleSystem() {
+        ParticleSystem goalHitParticles = Instantiate(goalHitParticlePrefab, transform.position, Quaternion.identity);
+        //goalHitParticles.transform.parent = goalHitParticles;
+        goalHitParticles.Play();
+        Destroy(goalHitParticles.gameObject, goalHitParticles.main.duration);
     }
 }
