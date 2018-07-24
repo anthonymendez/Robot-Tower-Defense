@@ -41,6 +41,7 @@ public class EnemyMovement : MonoBehaviour {
 
     private void HandleReachingGoal() {
         HandleGoalHitParticleSystem();
+        FindObjectOfType<EnemyCountUpdater>().AdjustEnemyCount(-1);
         Destroy(gameObject, nodePerSecond);
     }
 
