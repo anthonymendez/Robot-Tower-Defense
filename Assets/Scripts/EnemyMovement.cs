@@ -22,7 +22,14 @@ public class EnemyMovement : MonoBehaviour {
     IEnumerator FollowPath(List<Node> path) {
         foreach (Node b in path) {
             bool isLastNode = b == path[path.Count - 1];
-            transform.position = b.transform.position;
+            //transform.position = b.transform.position;
+
+            float elapsedTime = 0f;
+            while (elapsedTime < nodePerSecond) {
+                elapsedTime += Time.deltaTime;
+                transform.position = Vector3.Lerp(transform.position, b.transform.position, elapsedTime/nodePerSecond);
+                yield return new WaitForEndOfFrame();
+            }
 
             if (isLastNode) {
                 HandleReachingGoal();
