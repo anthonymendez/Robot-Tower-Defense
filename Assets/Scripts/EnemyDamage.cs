@@ -12,6 +12,7 @@ public class EnemyDamage : MonoBehaviour {
     [SerializeField] List<Text> scoreTexts;
 
     private Transform deathParticleParent;
+    private Transform enemyHitParticleParent;
     private ScoreUpdater scoreUpdater;
     private EnemyCountUpdater enemyCountUpdater;
 
@@ -23,6 +24,7 @@ public class EnemyDamage : MonoBehaviour {
 
     void SetDeathParticleParent() {
         deathParticleParent = GameObject.Find("Enemy Death Particles").transform;
+        enemyHitParticleParent = GameObject.Find("Enemy Hit Particles").transform;
     }
 
     // Update is called once per frame
@@ -54,8 +56,15 @@ public class EnemyDamage : MonoBehaviour {
     private void ProcessHit() {
         if (hitPoints > 0) {
             hitPoints--;
-            hitParticlePrefab.Play();
+            CreateHitParticle();
         }        
+    }
+
+    private void CreateHitParticle() {
+        ParticleSystem newHitPS = Instantiate(hitParticlePrefab, transform.position, Quaternion.identity);
+        newHitPS.transform.parent = enemyHitParticleParent;
+        newHitPS.Play();
+        Destroy(newHitPS.gameObject, 1f);
     }
 
     private bool IfKilled() {
