@@ -13,10 +13,12 @@ public class EnemyDamage : MonoBehaviour {
 
     private Transform deathParticleParent;
     private ScoreUpdater scoreUpdater;
+    private EnemyCountUpdater enemyCountUpdater;
 
     void Start() {
         SetDeathParticleParent();
         scoreUpdater = FindObjectOfType<ScoreUpdater>();
+        enemyCountUpdater = FindObjectOfType<EnemyCountUpdater>();
     }
 
     void SetDeathParticleParent() {
@@ -37,7 +39,8 @@ public class EnemyDamage : MonoBehaviour {
         }
 
         HandleDeathParticleSystem();
-        IncrementScore();
+        scoreUpdater.IncrementScore(1);
+        enemyCountUpdater.AdjustEnemyCount(-1);
         Destroy(gameObject);
     }
 
@@ -46,10 +49,6 @@ public class EnemyDamage : MonoBehaviour {
         deathParticles.transform.parent = deathParticleParent;
         deathParticles.Play();
         Destroy(deathParticles.gameObject, deathParticles.main.duration);
-    }
-
-    private void IncrementScore() {
-        scoreUpdater.IncrementScore(1);
     }
 
     private void ProcessHit() {

@@ -8,8 +8,11 @@ public class EnemySpawner : MonoBehaviour {
     [Range(0.1f, 10f)][SerializeField] float secondsBetweenSpawns = 3f;
     [SerializeField] GameObject enemyToSpawn;
 
+    private EnemyCountUpdater enemyCountUpdater;
+
 	// Use this for initialization
 	void Start () {
+        enemyCountUpdater = FindObjectOfType<EnemyCountUpdater>();
         StartCoroutine(SpawnEnemies());
 	}
 
@@ -17,6 +20,7 @@ public class EnemySpawner : MonoBehaviour {
         while (true) {
             GameObject newEnemy = Instantiate(enemyToSpawn, transform.position, Quaternion.identity);
             newEnemy.transform.parent = transform;
+            enemyCountUpdater.AdjustEnemyCount(1);
             yield return new WaitForSeconds(secondsBetweenSpawns);
         }
     }
