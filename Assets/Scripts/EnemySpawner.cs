@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour {
     
     [Range(0.1f, 10f)][SerializeField] float secondsBetweenSpawns = 3f;
     [SerializeField] GameObject enemyToSpawn;
+    [SerializeField] AudioClip spawnedEnemySFX;
 
     private EnemyCountUpdater enemyCountUpdater;
 
@@ -18,6 +19,7 @@ public class EnemySpawner : MonoBehaviour {
 
     IEnumerator SpawnEnemies() {
         while (true) {
+            GetComponent<AudioSource>().PlayOneShot(spawnedEnemySFX);
             GameObject newEnemy = Instantiate(enemyToSpawn, transform.position, Quaternion.identity);
             newEnemy.transform.parent = transform;
             enemyCountUpdater.AdjustEnemyCount(1);

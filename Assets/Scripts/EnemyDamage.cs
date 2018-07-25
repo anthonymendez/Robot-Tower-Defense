@@ -10,16 +10,20 @@ public class EnemyDamage : MonoBehaviour {
     [SerializeField] ParticleSystem hitParticlePrefab;
     [SerializeField] ParticleSystem deathParticlePrefab;
     [SerializeField] List<Text> scoreTexts;
+    [SerializeField] AudioClip enemyHitSFX;
+    [SerializeField] AudioClip enemyDieSFX;
 
     private Transform deathParticleParent;
     private Transform enemyHitParticleParent;
     private ScoreUpdater scoreUpdater;
     private EnemyCountUpdater enemyCountUpdater;
+    private AudioSource audioSource;
 
     void Start() {
         SetDeathParticleParent();
         scoreUpdater = FindObjectOfType<ScoreUpdater>();
         enemyCountUpdater = FindObjectOfType<EnemyCountUpdater>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void SetDeathParticleParent() {
@@ -40,6 +44,7 @@ public class EnemyDamage : MonoBehaviour {
             SetDeathParticleParent();
         }
 
+        AudioSource.PlayClipAtPoint(enemyDieSFX, FindObjectOfType<Camera>().transform.position, audioSource.volume);
         HandleDeathParticleSystem();
         scoreUpdater.IncrementScore(1);
         enemyCountUpdater.AdjustEnemyCount(-1);
@@ -57,6 +62,7 @@ public class EnemyDamage : MonoBehaviour {
         if (hitPoints > 0) {
             hitPoints--;
             CreateHitParticle();
+            audioSource.PlayOneShot(enemyHitSFX);
         }        
     }
 
